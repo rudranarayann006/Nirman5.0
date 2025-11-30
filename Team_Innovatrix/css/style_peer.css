@@ -5,6 +5,7 @@
         }
 
         :root {
+            /* MindMesh Purple Theme Colors */
             --primary: #6366f1;
             --primary-dark: #4f46e5;
             --primary-light: #8b5cf6;
@@ -37,6 +38,8 @@
             color: var(--foreground);
             background: var(--background);
         }
+
+        /* Header Styles */
         .header {
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(12px);
@@ -45,6 +48,7 @@
             top: 0;
             z-index: 1000;
         }
+
         .header-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -53,36 +57,43 @@
             align-items: center;
             justify-content: space-between;
         }
+
         .logo {
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
+
         .logo-icon {
             background: var(--gradient-primary);
             padding: 0.5rem;
             border-radius: 0.5rem;
             color: white;
         }
+
         .logo-text {
             font-size: 1.5rem;
             font-weight: bold;
             color: white;
         }
+
         .nav {
             display: none;
             align-items: center;
             gap: 2rem;
         }
+
         .nav a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: var(--transition-smooth);
         }
+
         .nav a:hover,
         .nav a.active {
             color: white;
         }
+
         .profile-btn {
             background: transparent;
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -92,15 +103,19 @@
             cursor: pointer;
             transition: var(--transition-smooth);
         }
+
         .profile-btn:hover {
             background: rgba(255, 255, 255, 0.1);
         }
+
+        /* Hero Section */
         .hero {
             background: var(--gradient-hero);
             padding: 5rem 1.5rem;
             text-align: center;
             color: white;
         }
+
         .hero-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -133,6 +148,7 @@
             gap: 0.5rem;
         }
 
+        /* Main Content */
         .main {
             padding: 4rem 1.5rem;
         }
@@ -182,6 +198,8 @@
   color: #007bff;
 }
 
+
+/* style the select */
 .view-story select {
   width: 100%;
   padding: 10px;
@@ -190,6 +208,7 @@
   border-radius: 6px;
 }
 
+/* container for all stories */
 #story-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -197,6 +216,7 @@
   margin-top: 15px;
 }
 
+/* each story card */
 .story-card {
   background: #ffffff;
   border-radius: 8px;
@@ -255,6 +275,8 @@
       width: 100px;
       height: 100px;
     }
+
+
     .call-btn {
   display: inline-block;
   padding: 10px 20px;
@@ -267,6 +289,7 @@
 .call-btn:hover {
   background-color: #218838;
 }
+
 .login-btn {
   display: inline-block;
   padding: 12px 24px;

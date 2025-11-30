@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,8 @@
 <body>
   <nav class="navbar">
     <div class="logo-container">
-    MINDMESH
+      <img src="assets/logo.png" alt="MindMesh Logo" class="navbar-logo">
+      <span class="brand-text">MindMesh</span>
     </div>
     <ul>
       <li><a href="index.html">Home</a></li>
@@ -22,30 +24,441 @@
       <li><a href="about.html">About Us</a></li>
       <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
     </ul>
-    </ul>
+    <div class="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </nav>
-  <section>
-    <h2>XYZ College,India</h2>
-    <p><strong>Building/Block:</strong> B-Block, Ground Floor</p>
-    <p><strong>Room No.:</strong> 102</p>
-    <p><strong>Office Contact:</strong> +91-98765-43210</p>
-    <h3>Book an Appointment</h3>
-    <form id="bookingForm">
-         <select>
-          <option>Select Counsellor</option>
-          <option>Dr.Anjali Sharma</option>
-          <option>Mr.Ramesh Kumar</option>
-          <option>Dr.Neha Verma</option>
-        </select>
-      <input type="text" id="studentName" placeholder="Your Name" required>
-      <input type="number" id="studentAge" placeholder="Your Age" required>
-      <input type="date" id="appointmentDate" required>
-      <input type="time" id="appointmentTime" required>
 
-      <textarea id="concern" placeholder="Briefly describe your concern (optional)"></textarea>
-      <button class="book-btn" onclick="alert('Thank You Booking! Counsellor will Confirm You soon!!')">
-  Book Appointment
-</button>
-    </form>
-    <div id="bookingMsg"></div>
+   <!-- Enhanced Hero Section for Booking -->
+  <section class="hero booking-hero">
+    <div class="hero-container">
+      <h1>Book Your Counselling Session</h1>
+      <p>Schedule a confidential appointment with our qualified mental health professionals</p>
+      
+      <div class="hero-features">
+        <div class="hero-feature">
+          <i class="fas fa-calendar-check"></i>
+          <span>Easy Booking</span>
+        </div>
+        <div class="hero-feature">
+          <i class="fas fa-shield-alt"></i>
+          <span>Confidential</span>
+        </div>
+        <div class="hero-feature">
+          <i class="fas fa-user-md"></i>
+          <span>Professional</span>
+        </div>
+      </div>
+    </div>
   </section>
+
+   <!-- Enhanced College Info & Booking Section -->
+  <section class="booking-section">
+    <div class="booking-container">
+      <!-- College Information Card -->
+      <div class="info-card">
+        <div class="info-header">
+          <i class="fas fa-university"></i>
+          <h2>XYZ College, India</h2>
+        </div>
+        <div class="info-content">
+          <div class="info-item">
+            <i class="fas fa-building"></i>
+            <div>
+              <span class="label">Building/Block:</span>
+              <span class="value">B-Block, Ground Floor</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-door-open"></i>
+            <div>
+              <span class="label">Room No.:</span>
+              <span class="value">102</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-phone"></i>
+            <div>
+              <span class="label">Office Contact:</span>
+              <span class="value">+91-98765-43210</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enhanced Booking Form -->
+      <div class="booking-form-card">
+        <div class="form-header">
+          <i class="fas fa-calendar-plus"></i>
+          <h3>Book an Appointment</h3>
+          <p>Fill in your details to schedule a session</p>
+        </div>
+        
+        <form id="bookingForm" class="enhanced-form">
+          <div class="form-group">
+            <label for="counsellorSelect">
+              <i class="fas fa-user-md"></i>
+              Select Counsellor
+            </label>
+            <select id="counsellorSelect" required>
+              <option value="">Choose your counsellor</option>
+              <option value="dr-anjali">Dr. Anjali Sharma</option>
+              <option value="mr-ramesh">Mr. Ramesh Kumar</option>
+              <option value="dr-neha">Dr. Neha Verma</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="studentName">
+                <i class="fas fa-user"></i>
+                Your Name
+              </label>
+              <input type="text" id="studentName" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+              <label for="studentAge">
+                <i class="fas fa-birthday-cake"></i>
+                Your Age
+              </label>
+              <input type="number" id="studentAge" placeholder="Age" min="16" max="100" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="appointmentDate">
+                <i class="fas fa-calendar"></i>
+                Appointment Date
+              </label>
+              <input type="date" id="appointmentDate" required>
+            </div>
+            <div class="form-group">
+              <label for="appointmentTime">
+                <i class="fas fa-clock"></i>
+                Preferred Time
+              </label>
+              <input type="time" id="appointmentTime" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="concern">
+              <i class="fas fa-comments"></i>
+              Describe Your Concern (Optional)
+            </label>
+            <textarea id="concern" placeholder="Briefly describe what you'd like to discuss... (This information will be kept confidential)" rows="4"></textarea>
+          </div>
+
+          <button type="submit" class="book-btn" onclick="alert('Thank You for Booking! Your counsellor will confirm your appointment soon.')">
+            <i class="fas fa-calendar-check"></i>
+            Book Appointment
+          </button>
+        </form>
+        <div id="bookingMsg"></div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+  /* Enhanced Booking Page Styling */
+  .booking-hero {
+    min-height: 50vh;
+    padding: 80px 40px 60px 40px;
+  }
+
+  .booking-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 80px 20px;
+    position: relative;
+  }
+
+  .booking-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .booking-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .info-card, .booking-form-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 
+      0 8px 25px rgba(0, 0, 0, 0.1),
+      0 4px 12px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+  }
+
+  .info-card:hover, .booking-form-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 15px 40px rgba(0, 0, 0, 0.15),
+      0 8px 25px rgba(99, 102, 241, 0.1);
+  }
+
+  .info-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(99, 102, 241, 0.1);
+  }
+
+  .info-header i {
+    font-size: 2rem;
+    color: #6366f1;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .info-header h2 {
+    font-size: 1.8rem;
+    color: #1e293b;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+  }
+
+  .info-item:last-child {
+    border-bottom: none;
+  }
+
+  .info-item i {
+    font-size: 1.2rem;
+    color: #6366f1;
+    width: 20px;
+    text-align: center;
+  }
+
+  .info-item .label {
+    font-weight: 600;
+    color: #475569;
+    margin-right: 8px;
+  }
+
+  .info-item .value {
+    color: #1e293b;
+    font-weight: 500;
+  }
+
+  .form-header {
+    text-align: center;
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 2px solid rgba(99, 102, 241, 0.1);
+  }
+
+  .form-header i {
+    font-size: 2.5rem;
+    color: #6366f1;
+    margin-bottom: 15px;
+    display: block;
+  }
+
+  .form-header h3 {
+    font-size: 1.8rem;
+    color: #1e293b;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+  }
+
+  .form-header p {
+    color: #64748b;
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .enhanced-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #475569;
+    font-size: 0.95rem;
+  }
+
+  .form-group label i {
+    color: #6366f1;
+    font-size: 1rem;
+  }
+
+  .enhanced-form input,
+  .enhanced-form select,
+  .enhanced-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background: #ffffff;
+    box-sizing: border-box;
+  }
+
+  .enhanced-form input:focus,
+  .enhanced-form select:focus,
+  .enhanced-form textarea:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    background: #fafbff;
+  }
+
+  .enhanced-form textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .book-btn {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    border: none;
+    padding: 16px 30px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+  }
+
+  .book-btn:hover {
+    background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+  }
+
+  .book-btn i {
+    font-size: 1.1rem;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .booking-container {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    
+    .info-card, .booking-form-card {
+      padding: 25px;
+    }
+    
+    .booking-section {
+      padding: 60px 15px;
+    }
+  }
+  </style>
+
+  <!-- Enhanced Footer -->
+  <footer class="peer-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>MindMesh</h3>
+        <p style="color: #94a3b8; line-height: 1.6;">Your mental wellness journey starts here. Connect, share, and grow with our supportive community.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Community</h3>
+        <div class="footer-links">
+          <a href="peer.html">Peer Support</a>
+          <a href="#"><i class="fas fa-users"></i> Join Groups</a>
+          <a href="#"><i class="fas fa-calendar"></i> Events</a>
+          <a href="#"><i class="fas fa-book"></i> Resources</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Support</h3>
+        <div class="footer-links">
+          <a href="counsel.html"><i class="fas fa-user-md"></i> Professional Help</a>
+          <a href="#"><i class="fas fa-phone"></i> Crisis Hotline</a>
+          <a href="#"><i class="fas fa-question-circle"></i> FAQ</a>
+          <a href="#"><i class="fas fa-envelope"></i> Contact Us</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Resources</h3>
+        <div class="footer-links">
+          <a href="ebooks.html"><i class="fas fa-book-open"></i> E-books</a>
+          <a href="videos.html"><i class="fas fa-video"></i> Videos</a>
+          <a href="#"><i class="fas fa-podcast"></i> Podcasts</a>
+          <a href="#"><i class="fas fa-blog"></i> Articles</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2025 MindMesh | Team Innovatrix | Built with 💙 for mental wellness</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

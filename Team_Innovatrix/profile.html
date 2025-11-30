@@ -13,8 +13,10 @@
 
 <body>
     <div class="app-container">
+        <!-- Authentication Page -->
         <div id="auth-page" class="auth-page">
             <div class="auth-container">
+                <!-- Left Hero Section -->
                 <div class="hero-section">
                     <div class="hero-content">
                         <h1>Your Mental Wellness Journey Starts Here</h1>
@@ -48,6 +50,7 @@
                             Back to Home
                         </button>
                     </div>
+
                     <div id="login-form" class="auth-form active">
                         <div class="form-header">
                             <div class="brand">
@@ -56,6 +59,7 @@
                             </div>
                             <p>Welcome back to your mental wellness journey</p>
                         </div>
+
                         <form id="loginForm" class="form">
                             <div class="form-group">
                                 <label for="loginEmail">Email Address</label>
@@ -65,6 +69,7 @@
                                         required>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="loginPassword">Password</label>
                                 <div class="input-group">
@@ -78,17 +83,6 @@
                                 </div>
                             </div>
 
-                            <div class="btn-group">
-                                <button id="privateBtn" type="button">Private</button>
-                                <button id="publicBtn" type="button">Public</button>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="age">Enter Your Age:</label>
-                                <input type="number" id="age" placeholder="Type your age" min="10" max="100">
-                                <p id="ageError" class="error"></p>
-                            </div>
-
                             <button type="submit" class="btn-primary">
                                 <span class="btn-text">Sign In</span>
                                 <span class="btn-loading" style="display: none;">Signing In...</span>
@@ -100,6 +94,7 @@
                                     now</a></p>
                         </div>
                     </div>
+
                     <div id="signup-form" class="auth-form">
                         <div class="form-header">
                             <div class="brand">
@@ -132,6 +127,7 @@
                                         required>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="university">University/College</label>
                                 <div class="input-group">
@@ -139,6 +135,7 @@
                                     <input type="text" id="university" placeholder="Your University Name" required>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="academicYear">Academic Year</label>
                                 <select id="academicYear" required>
@@ -152,6 +149,7 @@
                                     <option value="PhD Student">PhD Student</option>
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label for="signupAge">Age</label>
                                 <div class="input-group">
@@ -160,6 +158,7 @@
                                         required>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="signupPassword">Password</label>
                                 <div class="input-group">
@@ -172,6 +171,7 @@
                                     </button>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="confirmPassword">Confirm Password</label>
                                 <div class="input-group">
@@ -184,11 +184,13 @@
                                     </button>
                                 </div>
                             </div>
+
                             <button type="submit" class="btn-primary">
                                 <span class="btn-text">Create Account</span>
                                 <span class="btn-loading" style="display: none;">Creating Account...</span>
                             </button>
                         </form>
+
                         <div class="form-footer">
                             <p>Already have an account? <a href="#" class="link" onclick="switchToLogin()">Sign in
                                     here</a></p>
@@ -197,6 +199,7 @@
                 </div>
             </div>
         </div>
+
         <div id="profile-page" class="profile-page" style="display: none;">
             <div class="dashboard-container">
                 <header class="dashboard-header">
@@ -213,6 +216,7 @@
                         </button>
                     </div>
                 </header>
+
                 <div class="welcome-section">
                     <div class="user-info">
                         <div class="avatar">
@@ -241,6 +245,7 @@
                     </div>
                 </div>
 
+                <!-- Dashboard Tabs -->
                 <div class="dashboard-tabs">
                     <div class="tabs-nav">
                         <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
@@ -248,7 +253,10 @@
                         <button class="tab-btn" onclick="switchTab('resources')">Resources</button>
                         <button class="tab-btn" onclick="switchTab('community')">Community</button>
                     </div>
+
+                    <!-- Overview Tab -->
                     <div id="overview-tab" class="tab-content active">
+                        <!-- Stats Cards -->
                         <div class="stats-grid">
                             <div class="stat-card">
                                 <div class="stat-header">
@@ -264,6 +272,7 @@
                                     <p>Great progress! Keep up the good work.</p>
                                 </div>
                             </div>
+
                             <div class="stat-card">
                                 <div class="stat-header">
                                     <i class="fas fa-target"></i>
@@ -278,6 +287,7 @@
                                     <p>2 more to reach your goal!</p>
                                 </div>
                             </div>
+
                             <div class="stat-card">
                                 <div class="stat-header">
                                     <i class="fas fa-calendar"></i>
@@ -296,6 +306,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Activity & Events -->
                         <div class="content-grid">
                             <div class="activity-card">
                                 <div class="card-header">
@@ -373,17 +385,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Sessions Tab -->
                     <div id="sessions-tab" class="tab-content">
                         <div class="section-header">
                             <h3><i class="fas fa-calendar-alt"></i> My Sessions</h3>
                             <p>Track your mental wellness sessions and progress</p>
                         </div>
+
+                        <!-- Booked Sessions Display -->
                         <div id="bookedSessionsContainer" style="display: none; margin-bottom: 20px;">
                             <h4 style="margin-bottom: 15px; color: var(--primary-color);">
                                 <i class="fas fa-calendar-check"></i> Recently Booked Sessions
                             </h4>
                             <div id="bookedSessionsList"></div>
                         </div>
+
                         <div class="sessions-list">
                             <div class="session-card">
                                 <div class="session-info">
@@ -395,6 +412,7 @@
                                     <span>Completed</span>
                                 </div>
                             </div>
+
                             <div class="session-card">
                                 <div class="session-info">
                                     <h4>Mindfulness & Meditation</h4>
@@ -405,6 +423,7 @@
                                     <span>Upcoming</span>
                                 </div>
                             </div>
+
                             <div class="session-card">
                                 <div class="session-info">
                                     <h4>Anxiety Coping Strategies</h4>
@@ -416,15 +435,19 @@
                                 </div>
                             </div>
                         </div>
+
                         <button class="btn-primary" style="margin-top: 20px;" onclick="openBookSessionModal()">
                             <i class="fas fa-plus"></i> Book New Session
                         </button>
                     </div>
+
+                    <!-- Resources Tab -->
                     <div id="resources-tab" class="tab-content">
                         <div class="section-header">
                             <h3><i class="fas fa-book-open"></i> Learning Resources</h3>
                             <p>Access wellness guides, videos, and educational content</p>
                         </div>
+
                         <div class="resources-grid">
                             <div class="resource-card">
                                 <div class="resource-icon">
@@ -436,6 +459,7 @@
                                     <span class="resource-type">Video Series</span>
                                 </div>
                             </div>
+
                             <div class="resource-card">
                                 <div class="resource-icon">
                                     <i class="fas fa-file-pdf"></i>
@@ -446,6 +470,7 @@
                                     <span class="resource-type">PDF Guide</span>
                                 </div>
                             </div>
+
                             <div class="resource-card">
                                 <div class="resource-icon">
                                     <i class="fas fa-headphones"></i>
@@ -456,6 +481,7 @@
                                     <span class="resource-type">Audio Content</span>
                                 </div>
                             </div>
+
                             <div class="resource-card">
                                 <div class="resource-icon">
                                     <i class="fas fa-brain"></i>
@@ -466,6 +492,7 @@
                                     <span class="resource-type">Interactive Tools</span>
                                 </div>
                             </div>
+
                             <div class="resource-card">
                                 <div class="resource-icon">
                                     <i class="fas fa-graduation-cap"></i>
@@ -476,6 +503,7 @@
                                     <span class="resource-type">Study Guide</span>
                                 </div>
                             </div>
+
                             <div class="resource-card">
                                 <div class="resource-icon">
                                     <i class="fas fa-heart"></i>
@@ -488,11 +516,14 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Community Tab -->
                     <div id="community-tab" class="tab-content">
                         <div class="section-header">
                             <h3><i class="fas fa-users"></i> Community Support</h3>
                             <p>Connect with peers and share your wellness journey</p>
                         </div>
+
                         <div class="community-section">
                             <div class="community-stats">
                                 <div class="stat-item">
@@ -508,14 +539,18 @@
                                     <span class="stat-label">Support Messages</span>
                                 </div>
                             </div>
+
                             <div class="discussion-topics">
                                 <h4>Recent Discussions</h4>
+
+                                <!-- Created Discussions Display -->
                                 <div id="createdDiscussionsContainer" style="display: none; margin-bottom: 20px;">
                                     <h5 style="margin-bottom: 15px; color: var(--primary-color);">
                                         <i class="fas fa-comments"></i> Your Recent Discussions
                                     </h5>
                                     <div id="createdDiscussionsList"></div>
                                 </div>
+
                                 <div class="topic-card">
                                     <div class="topic-info">
                                         <h5>Managing Exam Anxiety</h5>
@@ -527,6 +562,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="topic-card">
                                     <div class="topic-info">
                                         <h5>Healthy Study Habits</h5>
@@ -538,6 +574,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="topic-card">
                                     <div class="topic-info">
                                         <h5>Mindfulness for Beginners</h5>
@@ -549,6 +586,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="topic-card">
                                     <div class="topic-info">
                                         <h5>Dealing with Homesickness</h5>
@@ -561,6 +599,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <button class="btn-primary" style="margin-top: 20px;" onclick="openDiscussionModal()">
                                 <i class="fas fa-plus"></i> Start New Discussion
                             </button>
@@ -570,7 +609,11 @@
             </div>
         </div>
     </div>
+
+    <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
+
+    <!-- Book Session Modal -->
     <div id="bookSessionModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -619,6 +662,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Start Discussion Modal -->
     <div id="discussionModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -665,6 +710,9 @@
             </div>
         </div>
     </div>
+
     <script src="js/script_login.js"></script>
+
 </body>
+
 </html>

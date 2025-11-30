@@ -1,10 +1,15 @@
 let currentUser = null;
 let isAuthenticated = false;
+
+// API Base URL
 const API_BASE_URL = window.location.origin + '/api';
+
+// Essential UI functions
 function togglePassword(inputId) {
     const passwordInput = document.getElementById(inputId);
     const toggleButton = passwordInput.parentElement.querySelector('.toggle-password');
     const icon = toggleButton.querySelector('i');
+    
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
         icon.classList.remove('fa-eye');
@@ -15,6 +20,7 @@ function togglePassword(inputId) {
         icon.classList.add('fa-eye');
     }
 }
+
 function switchToSignup() {
     const signupForm = document.getElementById('signup-form');
     const loginForm = document.getElementById('login-form');
@@ -31,6 +37,7 @@ function switchToSignup() {
         console.error('Forms not found:', { signupForm, loginForm });
     }
 }
+
 function switchToLogin() {
     const signupForm = document.getElementById('signup-form');
     const loginForm = document.getElementById('login-form');
@@ -45,10 +52,15 @@ function switchToLogin() {
         if (signupFormElement) signupFormElement.reset();
     }
 }
+
+// Make functions globally available
 window.switchToSignup = switchToSignup;
 window.switchToLogin = switchToLogin;
 window.togglePassword = togglePassword;
+
+// form handling
 document.addEventListener('DOMContentLoaded', function() {
+    // Checking if user is already logged in
     const savedUser = localStorage.getItem('mindmash_user');
     const savedToken = localStorage.getItem('mindmash_token');
     
@@ -62,23 +74,29 @@ document.addEventListener('DOMContentLoaded', function() {
         if (authPage) authPage.style.display = 'block';
         if (profilePage) profilePage.style.display = 'none';
     }
+    
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
     
     if (loginForm) {
         loginForm.addEventListener('submit', handleLogin);
     }
+    
     if (signupForm) {
         signupForm.addEventListener('submit', handleSignup);
-    } 
+    }
+    
     const bookSessionForm = document.getElementById('bookSessionForm');
     const discussionForm = document.getElementById('discussionForm');
+    
     if (bookSessionForm) {
         bookSessionForm.addEventListener('submit', handleBookSessionSubmit);
     }
+    
     if (discussionForm) {
         discussionForm.addEventListener('submit', handleDiscussionSubmit);
-    } 
+    }
+    
     window.addEventListener('click', function(event) {
         const bookModal = document.getElementById('bookSessionModal');
         const discussionModal = document.getElementById('discussionModal');
@@ -91,15 +109,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// login handler
 async function handleLogin(e) {
     e.preventDefault();
+    
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
     const age = document.getElementById('age').value;
+    
     if (!email || !password) {
         alert('Please fill in all fields');
         return;
     }
+    
     try {
         const response = await fetch(`${API_BASE_URL}/auth/signin`, {
             method: 'POST',
@@ -108,7 +131,9 @@ async function handleLogin(e) {
             },
             body: JSON.stringify({ email, password, age })
         });
-        const data = await response.json(); 
+        
+        const data = await response.json();
+        
         if (data.success) {
             alert('Login successful!');
             currentUser = data.user;
@@ -120,6 +145,8 @@ async function handleLogin(e) {
         }
     } catch (error) {
         console.error('Login error:', error);
+        
+        // For development/testing, Created fake user data for testing
         const fakeUser = {
             id: 'test123',
             firstName: email.split('@')[0],
@@ -137,6 +164,7 @@ async function handleLogin(e) {
     }
 }
 
+// signup handler
 async function handleSignup(e) {
     e.preventDefault();
     
@@ -150,7 +178,8 @@ async function handleSignup(e) {
         password: document.getElementById('signupPassword').value,
         confirmPassword: document.getElementById('confirmPassword').value
     };
-
+    
+    // Basic validation
     if (!formData.firstName || !formData.lastName || !formData.email || 
         !formData.university || !formData.academicYear || !formData.age || !formData.password) {
         alert('Please fill in all required fields');
@@ -180,16 +209,19 @@ async function handleSignup(e) {
         
         if (data.success) {
             alert('Account created successfully!');
+            // Store user data
             currentUser = data.user;
             localStorage.setItem('mindmash_user', JSON.stringify(data.user));
             localStorage.setItem('mindmash_token', data.token);
+            // Show dashboard
             showDashboard();
         } else {
             alert(data.message || 'Signup failed');
         }
     } catch (error) {
         console.error('Signup error:', error);
-
+        
+        // For development/testing, using the form data as fake user data
         const fakeUser = {
             id: 'test' + Date.now(),
             firstName: formData.firstName,
@@ -208,6 +240,7 @@ async function handleSignup(e) {
     }
 }
 
+// Dashboard functions
 function showDashboard() {
     const authPage = document.getElementById('auth-page');
     const profilePage = document.getElementById('profile-page');
@@ -254,8 +287,10 @@ function logout() {
     
     switchToLogin();
 }
+
 window.logout = logout;
 
+// Tab switching function
 function switchTab(tabName) {
     const tabButtons = document.querySelectorAll('.tab-btn');
     tabButtons.forEach(btn => btn.classList.remove('active'));
@@ -276,8 +311,10 @@ function switchTab(tabName) {
 
 window.switchTab = switchTab;
 
+// Modal functions for Sessions and Community
 function openBookSessionModal() {
     document.getElementById('bookSessionModal').style.display = 'block';
+    // Setting minimum date to today
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('preferredDate').min = today;
 }
@@ -460,6 +497,7 @@ function getTimeAgo(date) {
     return `${days} days ago`;
 }
 
+// Toast notification function
 function showToast(message, type = 'info') {
     const toast = document.getElementById('toast');
     if (!toast) return;
@@ -472,6 +510,7 @@ function showToast(message, type = 'info') {
     }, 2500);
 }
 
+// Placeholder functions for future features
 function editBooking(button) {
     showToast('Edit booking feature coming soon!', 'info');
 }
@@ -491,6 +530,7 @@ function editDiscussion(button) {
     showToast('Edit discussion feature coming soon!', 'info');
 }
 
+// Modal functions globally available
 window.openBookSessionModal = openBookSessionModal;
 window.closeBookSessionModal = closeBookSessionModal;
 window.openDiscussionModal = openDiscussionModal;

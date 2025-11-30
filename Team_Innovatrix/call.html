@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindMesh - Video Call</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: white;
+    }
+
+    .header {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .connection-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(46, 125, 50, 0.9);
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    .connection-status.connecting {
+      background: rgba(255, 152, 0, 0.9);
+    }
+
+    .connection-status.disconnected {
+      background: rgba(244, 67, 54, 0.9);
+    }
+
+    .video-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .main-video {
+      width: 100%;
+      max-width: 800px;
+      height: auto;
+      aspect-ratio: 16/9;
+      border-radius: 16px;
+      background: #000;
+      object-fit: cover;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .video-placeholder {
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      background: linear-gradient(45deg, #2c3e50, #34495e);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .video-placeholder i {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      opacity: 0.7;
+    }
+
+    .video-placeholder h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .video-placeholder p {
+      opacity: 0.8;
+      max-width: 300px;
+    }
+
+    .remote-video {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 200px;
+      height: 150px;
+      border-radius: 12px;
+      background: #000;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      display: none;
+    }
+
+    .controls {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      backdrop-filter: blur(10px);
+      flex-wrap: wrap;
+    }
+
+    .control-btn {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .control-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .camera-btn {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .camera-btn.off {
+      background: #f44336;
+    }
+
+    .mic-btn {
+      background: #2196F3;
+      color: white;
+    }
+
+    .mic-btn.off {
+      background: #f44336;
+    }
+
+    .screen-btn {
+      background: #FF9800;
+      color: white;
+    }
+
+    .screen-btn.active {
+      background: #4CAF50;
+    }
+
+    .settings-btn {
+      background: #9C27B0;
+      color: white;
+    }
+
+    .end-call-btn {
+      background: #f44336;
+      color: white;
+      width: 70px;
+      height: 70px;
+      font-size: 1.8rem;
+    }
+
+    .end-call-btn:hover {
+      background: #d32f2f;
+      transform: scale(1.05);
+    }
+
+    .error-message, .success-message {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-weight: 500;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .error-message {
+      background: rgba(244, 67, 54, 0.9);
+      color: white;
+    }
+
+    .success-message {
+      background: rgba(76, 175, 80, 0.9);
+      color: white;
+    }
+
+    .error-message.show, .success-message.show {
+      opacity: 1;
+    }
+
+    .device-selection {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      color: #333;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      display: none;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .device-selection h3 {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .device-group {
+      margin-bottom: 15px;
+    }
+
+    .device-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    .device-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    .device-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .device-buttons button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .apply-btn {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .cancel-btn {
+      background: #f44336;
+      color: white;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.2rem;
+      }
+
+      .main-video, .video-placeholder {
+        max-width: 100%;
+        height: 250px;
+      }
+
+      .remote-video {
+        width: 120px;
+        height: 90px;
+        top: 10px;
+        right: 10px;
+      }
+
+      .controls {
+        padding: 15px 10px;
+        gap: 10px;
+      }
+
+      .control-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+
+      .end-call-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+    }
+
+    .loading-indicator {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <h1><i class="fas fa-video"></i> MindMesh Video Call</h1>
+    <div class="connection-status" id="connectionStatus">
+      <div class="loading-indicator"></div>
+      <span>Connecting...</span>
+    </div>
+  </div>
+
+  <!-- Video Container -->
+  <div class="video-container">
+   <video id="localVideo" autoplay playsinline></video>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button class="control-btn camera-btn" class="cam-on" id="toggleCam" title="Toggle Camera">
+      <i class="fas fa-video"></i>
+    </button>
+    
+    <button class="control-btn mic-btn" class="mic-on" id="toggleMic" title="Toggle Microphone">
+      <i class="fas fa-microphone"></i>
+    </button>
+    
+    <button class="control-btn screen-btn" id="screenBtn" title="Share Screen">
+      <i class="fas fa-desktop"></i>
+    </button>
+    
+    <button class="control-btn settings-btn" id="settingsBtn" title="Settings">
+      <i class="fas fa-cog"></i>
+    </button>
+    
+    <button class="control-btn end-call-btn" class="end-call" id="endCall" title="End Call">
+      <i class="fas fa-phone"></i>
+    </button>
+  </div>
+
+
+  <!-- Device Selection Modal -->
+  <div class="device-selection" id="deviceModal">
+    <h3>Device Settings</h3>
+    
+    <div class="device-group">
+      <label for="cameraSelect">Camera:</label>
+      <select id="cameraSelect"></select>
+    </div>
+    
+    <div class="device-group">
+      <label for="micSelect">Microphone:</label>
+      <select id="micSelect"></select>
+    </div>
+    
+    <div class="device-buttons">
+      <button class="apply-btn" id="applySettings">Apply</button>
+      <button class="cancel-btn" id="cancelSettings">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div class="error-message" id="errorMessage"></div>
+  <div class="success-message" id="successMessage"></div>
+
+  <script>
+    class VideoCallManager {
+      constructor() {
+        this.localStream = null;
+        this.remoteStream = null;
+        this.isVideoOn = false;
+        this.isAudioOn = false;
+        this.isScreenSharing = false;
+        this.devices = { cameras: [], microphones: [] };
+        
+        this.initializeElements();
+        this.setupEventListeners();
+        this.checkBrowserSupport();
+      }
+
+      initializeElements() {
+        this.localVideo = document.getElementById('localVideo');
+        this.remoteVideo = document.getElementById('remoteVideo');
+        this.videoPlaceholder = document.getElementById('videoPlaceholder');
+        this.connectionStatus = document.getElementById('connectionStatus');
+        
+        this.cameraBtn = document.getElementById('cameraBtn');
+        this.micBtn = document.getElementById('micBtn');
+        this.screenBtn = document.getElementById('screenBtn');
+        this.settingsBtn = document.getElementById('settingsBtn');
+        this.endCallBtn = document.getElementById('endCallBtn');
+        
+        this.deviceModal = document.getElementById('deviceModal');
+        this.cameraSelect = document.getElementById('cameraSelect');
+        this.micSelect = document.getElementById('micSelect');
+        
+        this.errorMessage = document.getElementById('errorMessage');
+        this.successMessage = document.getElementById('successMessage');
+      }
+
+      setupEventListeners() {
+        this.cameraBtn.addEventListener('click', () => this.toggleCamera());
+        this.micBtn.addEventListener('click', () => this.toggleMicrophone());
+        this.screenBtn.addEventListener('click', () => this.toggleScreenShare());
+        this.settingsBtn.addEventListener('click', () => this.openSettings());
+        this.endCallBtn.addEventListener('click', () => this.endCall());
+        
+        document.getElementById('applySettings').addEventListener('click', () => this.applySettings());
+        document.getElementById('cancelSettings').addEventListener('click', () => this.closeSettings());
+      }
+
+      checkBrowserSupport() {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          this.showError('Your browser does not support video calling. Please use a modern browser like Chrome, Firefox, or Safari.');
+          return false;
+        }
+        
+        // Check for HTTPS (except localhost)
+        if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+          this.showError('Video calling requires HTTPS. Please access this page over a secure connection.');
+          return false;
+        }
+        
+        this.initializeCall();
+        return true;
+      }
+
+      async initializeCall() {
+        try {
+          await this.enumerateDevices();
+          await this.startLocalStream();
+          this.updateConnectionStatus('connected', 'Connected');
+          this.showSuccess('Camera and microphone connected successfully!');
+        } catch (error) {
+          this.handleMediaError(error);
+        }
+      }
+
+      async enumerateDevices() {
+        try {
+          const devices = await navigator.mediaDevices.enumerateDevices();
+          
+          this.devices.cameras = devices.filter(device => device.kind === 'videoinput');
+          this.devices.microphones = devices.filter(device => device.kind === 'audioinput');
+          
+          this.populateDeviceSelectors();
+        } catch (error) {
+          console.error('Error enumerating devices:', error);
+        }
+      }
+
+      populateDeviceSelectors() {
+        // Clear existing options
+        this.cameraSelect.innerHTML = '';
+        this.micSelect.innerHTML = '';
+        
+        // Populate camera options
+        this.devices.cameras.forEach((camera, index) => {
+          const option = document.createElement('option');
+          option.value = camera.deviceId;
+          option.textContent = camera.label || `Camera ${index + 1}`;
+          this.cameraSelect.appendChild(option);
+        });
+        
+        // Populate microphone options
+        this.devices.microphones.forEach((mic, index) => {
+          const option = document.createElement('option');
+          option.value = mic.deviceId;
+          option.textContent = mic.label || `Microphone ${index + 1}`;
+          this.micSelect.appendChild(option);
+        });
+      }
+
+      async startLocalStream(cameraId = null, micId = null) {
+        try {
+          const constraints = {
+            video: {
+              deviceId: cameraId ? { exact: cameraId } : undefined,
+              width: { ideal: 1280, max: 1920 },
+              height: { ideal: 720, max: 1080 },
+              facingMode: 'user'
+            },
+            audio: {
+              deviceId: micId ? { exact: micId } : undefined,
+              echoCancellation: true,
+              noiseSuppression: true,
+              autoGainControl: true
+            }
+          };
+
+          // Stop existing stream
+          if (this.localStream) {
+            this.localStream.getTracks().forEach(track => track.stop());
+          }
+
+          this.localStream = await navigator.mediaDevices.getUserMedia(constraints);
+          this.localVideo.srcObject = this.localStream;
+          
+          // Show video, hide placeholder
+          this.localVideo.style.display = 'block';
+          this.videoPlaceholder.style.display = 'none';
+          
+          // Update button states
+          this.isVideoOn = true;
+          this.isAudioOn = true;
+          this.updateButtonStates();
+          
+        } catch (error) {
+          throw error;
+        }
+      }
+
+      toggleCamera() {
+        if (this.localStream) {
+          const videoTrack = this.localStream.getVideoTracks()[0];
+          if (videoTrack) {
+            videoTrack.enabled = !videoTrack.enabled;
+            this.isVideoOn = videoTrack.enabled;
+            this.updateButtonStates();
+            
+            if (this.isVideoOn) {
+              this.localVideo.style.display = 'block';
+              this.videoPlaceholder.style.display = 'none';
+            } else {
+              this.localVideo.style.display = 'none';
+              this.videoPlaceholder.style.display = 'flex';
+              this.videoPlaceholder.innerHTML = `
+                <i class="fas fa-video-slash"></i>
+                <h3>Camera Off</h3>
+                <p>Click the camera button to turn on your camera</p>
+              `;
+            }
+          }
+        }
+      }
+
+      toggleMicrophone() {
+        if (this.localStream) {
+          const audioTrack = this.localStream.getAudioTracks()[0];
+          if (audioTrack) {
+            audioTrack.enabled = !audioTrack.enabled;
+            this.isAudioOn = audioTrack.enabled;
+            this.updateButtonStates();
+          }
+        }
+      }
+
+      async toggleScreenShare() {
+        try {
+          if (!this.isScreenSharing) {
+            // Start screen sharing
+            const screenStream = await navigator.mediaDevices.getDisplayMedia({
+              video: true,
+              audio: true
+            });
+            
+            // Replace video track
+            const videoTrack = screenStream.getVideoTracks()[0];
+            if (this.localStream) {
+              const sender = this.localStream.getVideoTracks()[0];
+              this.localStream.removeTrack(sender);
+              this.localStream.addTrack(videoTrack);
+              this.localVideo.srcObject = this.localStream;
+            }
+            
+            this.isScreenSharing = true;
+            this.showSuccess('Screen sharing started');
+            
+            // Listen for screen share end
+            videoTrack.addEventListener('ended', () => {
+              this.stopScreenShare();
+            });
+            
+          } else {
+            this.stopScreenShare();
+          }
+          
+          this.updateButtonStates();
+        } catch (error) {
+          this.showError('Failed to start screen sharing: ' + error.message);
+        }
+      }
+
+      async stopScreenShare() {
+        try {
+          // Restart camera
+          await this.startLocalStream();
+          this.isScreenSharing = false;
+          this.updateButtonStates();
+          this.showSuccess('Screen sharing stopped');
+        } catch (error) {
+          this.showError('Failed to stop screen sharing: ' + error.message);
+        }
+      }
+
+      updateButtonStates() {
+        // Camera button
+        this.cameraBtn.classList.toggle('off', !this.isVideoOn);
+        this.cameraBtn.querySelector('i').className = this.isVideoOn ? 'fas fa-video' : 'fas fa-video-slash';
+        
+        // Microphone button
+        this.micBtn.classList.toggle('off', !this.isAudioOn);
+        this.micBtn.querySelector('i').className = this.isAudioOn ? 'fas fa-microphone' : 'fas fa-microphone-slash';
+        
+        // Screen share button
+        this.screenBtn.classList.toggle('active', this.isScreenSharing);
+        this.screenBtn.querySelector('i').className = this.isScreenSharing ? 'fas fa-stop' : 'fas fa-desktop';
+      }
+
+      openSettings() {
+        this.deviceModal.style.display = 'block';
+      }
+
+      closeSettings() {
+        this.deviceModal.style.display = 'none';
+      }
+
+      async applySettings() {
+        const selectedCamera = this.cameraSelect.value;
+        const selectedMic = this.micSelect.value;
+        
+        try {
+          await this.startLocalStream(selectedCamera, selectedMic);
+          this.closeSettings();
+          this.showSuccess('Device settings applied successfully!');
+        } catch (error) {
+          this.showError('Failed to apply settings: ' + error.message);
+        }
+      }
+
+      updateConnectionStatus(status, text) {
+        this.connectionStatus.className = `connection-status ${status}`;
+        this.connectionStatus.innerHTML = `
+          ${status === 'connecting' ? '<div class="loading-indicator"></div>' : '<i class="fas fa-circle"></i>'}
+          <span>${text}</span>
+        `;
+      }
+
+      handleMediaError(error) {
+        let message = 'Unable to access camera or microphone. ';
+        
+        switch (error.name) {
+          case 'NotAllowedError':
+            message += 'Please allow camera and microphone permissions and refresh the page.';
+            break;
+          case 'NotFoundError':
+            message += 'No camera or microphone found. Please connect a device.';
+            break;
+          case 'NotSupportedError':
+            message += 'Your browser does not support this feature.';
+            break;
+          case 'OverconstrainedError':
+            message += 'Camera settings not supported. Try different settings.';
+            break;
+          default:
+            message += 'Please check your camera and microphone settings.';
+        }
+        
+        this.showError(message);
+        this.updateConnectionStatus('disconnected', 'Connection Failed');
+        
+        this.videoPlaceholder.innerHTML = `
+          <i class="fas fa-exclamation-triangle"></i>
+          <h3>Connection Failed</h3>
+          <p>${message}</p>
+        `;
+      }
+
+      showError(message) {
+        this.errorMessage.textContent = message;
+        this.errorMessage.classList.add('show');
+        setTimeout(() => {
+          this.errorMessage.classList.remove('show');
+        }, 5000);
+      }
+
+      showSuccess(message) {
+        this.successMessage.textContent = message;
+        this.successMessage.classList.add('show');
+        setTimeout(() => {
+          this.successMessage.classList.remove('show');
+        }, 3000);
+      }
+
+      endCall() {
+        if (this.localStream) {
+          this.localStream.getTracks().forEach(track => track.stop());
+        }
+        
+        if (this.remoteStream) {
+          this.remoteStream.getTracks().forEach(track => track.stop());
+        }
+        
+        this.showSuccess('Call ended successfully');
+        
+        setTimeout(() => {
+          window.location.href = 'counsel.html';
+        }, 1500);
+      }
+    }
+
+    // Initialize the video call when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      new VideoCallManager();
+    });
+
+  const videoEl = document.getElementById('localVideo');
+  const camBtn = document.getElementById('toggleCam');
+  const micBtn = document.getElementById('toggleMic');
+  let stream;
+
+  // Start camera + mic
+  async function startCamera() {
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      videoEl.srcObject = stream;
+    } catch (err) {
+      console.error('Error accessing camera/mic:', err);
+    }
+  }
+  startCamera();
+
+  // Toggle camera
+  camBtn.addEventListener('click', () => {
+    if (!stream) return;
+    const videoTrack = stream.getVideoTracks()[0];
+    videoTrack.enabled = !videoTrack.enabled;
+    camBtn.style.background = videoTrack.enabled ? 'green' : 'gray';
+  });
+
+  // Toggle mic
+  micBtn.addEventListener('click', () => {
+    if (!stream) return;
+    const audioTrack = stream.getAudioTracks()[0];
+    audioTrack.enabled = !audioTrack.enabled;
+    micBtn.style.background = audioTrack.enabled ? 'dodgerblue' : 'gray';
+  });
+
+  // End call
+  document.getElementById('endCall').addEventListener('click', () => {
+    if (stream) stream.getTracks().forEach(track => track.stop());
+    videoEl.srcObject = null;
+  });
+
+
+
+  </script>
+
+  <!-- Simple Footer -->
+  <footer style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); padding: 20px; text-align: center; color: #94a3b8; margin-top: 40px;">
+    <p>© 2025 MindMesh | Team Innovatrix</p>
+  </footer>
+
+</body>
+</html>

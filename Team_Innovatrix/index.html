@@ -2,197 +2,383 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MindMesh-Home</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MindMesh-Home</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="logo-container">
-            MINDMESH
-        </div>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="peer.html">Peer Community</a></li>
-            <li><a href="counsel.html">Counsellors</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
-        </ul>
-        </ul>
-        <div class="menu-toggle">☰</div>
-    </nav>
-    <section class="hero">
-        <h1>MINDMESH</h1>
-        <h1>A Digital-First Mental Health Ecosystem</h1>
-        <p>Talk. Share. Heal. Anytime, Anywhere. Peer support, counsellors, and AI all in one safe platform.</p>
+  <nav class="navbar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="MindMesh Logo" class="navbar-logo">
+      <span class="brand-text">MindMesh</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="peer.html">Peer Community</a></li>
+      <li><a href="counsel.html">Counsellors</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+    </ul>
+    <div class="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+  
+  <section class="hero">
+    <div class="hero-container">
+      <h1>A Digital-First Mental Health Ecosystem</h1>
+      <p>Talk. Share. Heal. Anytime, Anywhere. Peer support, counsellors, and AI all in one safe platform.</p>
+      
+      <div class="btn-container">
         <a href="peer.html" class="btn">
-            <i class="fa-solid fa-users"></i> Join Community
+          <i class="fa-solid fa-users"></i> Join Community
         </a>
         <a href="counsel.html" class="btn">
-            <i class="fa-solid fa-user-doctor"></i> Talk to Counsellor
+          <i class="fa-solid fa-user-doctor"></i> Talk to Counsellor
         </a>
         <a href="" class="btn">
-            <i class="fa-solid fa-robot"></i> Chat with AI Bot
+          <i class="fa-solid fa-robot"></i> Chat with AI Bot
         </a>
-    </section>
-   
+      </div>
 
-    <section id="features" class="features">
-        <div class="card">
-            <i class="fa-solid fa-users"></i>
-            <h3>Peer Support</h3>
-            <p>Connect with fellow students and share experiences without fear of judgement.</p>
+      <div class="hero-features">
+        <div class="hero-feature">
+          <i class="fas fa-video"></i>
+          <span>Video Sessions</span>
         </div>
-        <div class="card">
-            <i class="fa-solid fa-user-doctor"></i>
-            <h3>Counsellor Connect</h3>
-            <p>Book private and secure sessions with professional counsellors instantly.</p>
+        <div class="hero-feature">
+          <i class="fas fa-phone"></i>
+          <span>24/7 Support</span>
         </div>
-        <div class="card">
-            <i class="fa-solid fa-robot"></i>
-            <h3>AI Assistant</h3>
-            <p>Get 24x7 instant guidance and coping strategies through our AI-powered bot.</p>
+        <div class="hero-feature">
+          <i class="fas fa-comments"></i>
+          <span>Confidential</span>
         </div>
-        <div class="card">
-            <i class="fa-solid fa-chart-column"></i>
-            <h3>Analytics</h3>
-            <p>Anonymous data insights for faculty to understand student well-being trends.</p>
+      </div>
+    </div>
+  </section>
+  <section class="features">
+    <div class="card">
+      <i class="fa-solid fa-users"></i>
+      <h3>Peer Support</h3>
+      <p>Connect with fellow students and share experiences without fear of judgement in our supportive community.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-user-doctor"></i>
+      <h3>Counsellor Connect</h3>
+      <p>Book private and secure sessions with professional counsellors instantly through our platform.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-robot"></i>
+      <h3>AI Assistant</h3>
+      <p>Get 24x7 instant guidance and coping strategies through our AI-powered mental health bot.</p>
+    </div>
+    <div class="card">
+      <i class="fa-solid fa-chart-column"></i>
+      <h3>Analytics</h3>
+      <p>Anonymous data insights for faculty to understand student well-being trends and patterns.</p>
+    </div>
+  </section>
+
+  <section class="resources-section">
+  <h2 class="section-title">Resources</h2>
+  <p class="section-subtitle">Explore curated e-books and videos to boost your mental wellness and learning journey.</p>
+  
+  <div class="resources-container">
+    <!-- E-books Card -->
+    <div class="resource-card">
+      <div class="resource-icon">
+        📚
+      </div>
+      <h3>E-books</h3>
+      <p>Download handpicked guides and e-books to support your personal growth and academics.</p>
+      <a href="ebooks.html" class="resource-btn">Explore E-books</a>
+    </div>
+
+    <!-- Videos Card -->
+    <div class="resource-card">
+      <div class="resource-icon">
+        🎥
+      </div>
+      <h3>Videos</h3>
+      <p>Watch expert talks, motivational clips, and coping strategy videos anytime you need.</p>
+      <a href="videos.html" class="resource-btn">Watch Videos</a>
+    </div>
+
+     <div class="resource-card">
+      <img src="https://img.icons8.com/color/96/mental-health.png" alt="Assessment" class="resource-icon" />
+      <h3>Mental Health Assessment</h3>
+      <p>Take a comprehensive self-assessment to evaluate your mental well-being and track progress.</p>
+      <a href="assessment.html" class="resource-btn">Start Assessment</a>
+    </div>
+  </div>
+    
+  </div>
+</section>
+
+<style>
+/* Enhanced Resources Section with About Page Color Scheme */
+.resources-section {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 20px;
+  margin: 60px auto;
+  max-width: 1200px;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.resources-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 2;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: #64748b;
+  margin-bottom: 50px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+  position: relative;
+  z-index: 2;
+}
+
+.resources-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 35px;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.resource-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 35px 25px;
+  transition: all 0.4s ease;
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.08),
+    0 3px 10px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.resource-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.08), transparent);
+  transition: left 0.6s ease;
+}
+
+.resource-card:hover::before {
+  left: 100%;
+}
+
+.resource-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.15),
+    0 8px 25px rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.resource-icon {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  width: 96px;
+  height: 96px;
+  max-width: 96px;
+  max-height: 96px;
+  object-fit: contain;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.resource-card h3 {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.resource-card p {
+  font-size: 1rem;
+  color: #64748b;
+  margin-bottom: 25px;
+  line-height: 1.6;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.resource-btn {
+  display: inline-block;
+  text-decoration: none;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  color: white;
+  font-weight: 600;
+  padding: 12px 25px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+  margin-top: auto;
+}
+
+.resource-btn:hover {
+  background: linear-gradient(135deg, #5b21b6 0%, #7c3aed 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.2rem;
+  }
+  
+  .resources-container {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .resource-card {
+    padding: 30px 20px;
+    min-height: 260px;
+  }
+}
+</style>
+
+  
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <h2>What Students Say</h2>
+    <div class="testimonials-container">
+      <div class="testimonial">
+        <p>“MindMesh gave me a safe space to express my feelings. The peer community is amazing!”</p>
+        <h4>— Aditi, 2nd Year</h4>
+      </div>
+      <div class="testimonial">
+        <p>“I connected with a counsellor within minutes. It really helped me during exams.”</p>
+        <h4>— Rahul, Final Year</h4>
+      </div>
+      <div class="testimonial">
+        <p>“The AI bot and mood tracking keep me on top of my mental wellness. Love it!”</p>
+        <h4>— Sneha, 1st Year</h4>
+      </div>
+    </div>
+  </section>
+  <!-- Emergency Floating Button -->
+  <div class="floating-btn" onclick="alert('📞 Dialing 24x7 Helpline...')">
+    <i class="fa-solid fa-phone"></i>
+  </div>
+  <!-- Chatbot Floating Icon + Popup -->
+  <div id="chatbot-container">
+    <div id="chatbot-container">
+    </div>
+    <div id="chatbot-icon">
+      <i class="fa-solid fa-robot"></i>
+    </div>
+    <div id="chatbot-popup">
+      <iframe src="https://sihchatbot-227.netlify.app/"
+        style="width: 350px; height: 500px; border: none; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.3);"
+      allow="microphone; autoplay; camera"></iframe>
+      
+    </div>
+  </div>
+  <!-- Enhanced Footer -->
+  <footer class="peer-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>MindMesh</h3>
+        <p style="color: #94a3b8; line-height: 1.6;">Your mental wellness journey starts here. Connect, share, and grow with our supportive community.</p>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
         </div>
-    </section>
-    <section class="resources-section">
-        <h2 class="section-title">Resources</h2>
-        <p class="section-subtitle">Explore curated e-books and videos to boost your mental wellness and learning
-            journey.</p>
-
-        <div class="resources-container">
-            
-            <div class="resource-card">
-                <div class="resource-icon">
-                    📚
-                </div>
-                <h3>E-books</h3>
-                <p>Download handpicked guides and e-books to support your personal growth and academics.</p>
-                <a href="ebooks.html" class="resource-btn">Explore E-books</a>
-            </div>
-
-            
-            <div class="resource-card">
-                <div class="resource-icon">
-                    🎥
-                </div>
-                <h3>Videos</h3>
-                <p>Watch expert talks, motivational clips, and coping strategy videos anytime.</p>
-                <a href="videos.html" class="resource-btn">Watch Videos</a>
-            </div>
-            <style>
-
-                
-                .resources-section {
-                    text-align: center;
-                    padding: 60px 20px;
-                    background: #f9fbff;
-                    border-radius: 16px;
-                    margin: 50px auto;
-                    max-width: 1100px;
-                    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.05);
-                }
-
-                .section-title {
-                    font-size: 2rem;
-                    font-weight: 700;
-                    color: #1a237e;
-                    margin-bottom: 10px;
-                }
-
-                .section-subtitle {
-                    font-size: 1rem;
-                    color: #666;
-                    margin-bottom: 40px;
-                }
-
-                .resources-container {
-                    display: flex;
-                    justify-content: center;
-                    gap: 30px;
-                    flex-wrap: wrap;
-                }
-
-                .resource-card {
-                    background: white;
-                    border-radius: 16px;
-                    padding: 30px 20px;
-                    width: 300px;
-                    transition: all 0.3s ease;
-                    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-                }
-
-                .resource-card:hover {
-                    transform: translateY(-8px);
-                    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-                }
-
-                .resource-icon {
-                    font-size: 3rem;
-                    margin-bottom: 15px;
-                }
-
-                .resource-card h3 {
-                    font-size: 1.5rem;
-                    color: #1a237e;
-                    margin-bottom: 10px;
-                }
-
-                .resource-card p {
-                    font-size: 0.95rem;
-                    color: #555;
-                    margin-bottom: 20px;
-                }
-
-                .resource-btn {
-                    display: inline-block;
-                    text-decoration: none;
-                    background: #1a73e8;
-                    color: white;
-                    font-weight: 600;
-                    padding: 10px 20px;
-                    border-radius: 30px;
-                    transition: all 0.3s ease;
-                }
-
-                .resource-btn:hover {
-                    background: #0d47a1;
-                }
-            </style>
-           
-            <section class="testimonials">
-                <h2>What Students Say</h2>
-                <div class="testimonials-container">
-                    <div class="testimonial">
-                        <p>“MindMesh gave me a safe space to express my feelings. The peer community is amazing!”</p>
-                        <h4>— Aditi, 2nd Year</h4>
-                    </div>
-                    <div class="testimonial">
-                        <p>“I connected with a counsellor within minutes. It really helped me during exams.”</p>
-                        <h4>— Rahul, Final Year</h4>
-                    </div>
-                    <div class="testimonial">
-                        <p>“The AI bot and mood tracking keep me on top of my mental wellness. Love it!”</p>
-                        <h4>— Sneha, 1st Year</h4>
-                    </div>
-                </div>
-            </section>
-
-            <div class="floating-btn" onclick="alert('📞 Dialing 24x7 Helpline...')">
-                <i class="fa-solid fa-phone"></i>
-            </div>
-
-            <footer>
-                <p>© 2025 MindMesh | Team Innovatrix</p>
-            </footer>
-            <script src="js/script.js"></script>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Community</h3>
+        <div class="footer-links">
+          <a href="peer.html">Peer Support</a>
+          <a href="#"><i class="fas fa-users"></i> Join Groups</a>
+          <a href="#"><i class="fas fa-calendar"></i> Events</a>
+          <a href="#"><i class="fas fa-book"></i> Resources</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Support</h3>
+        <div class="footer-links">
+          <a href="counsel.html"><i class="fas fa-user-md"></i> Professional Help</a>
+          <a href="#"><i class="fas fa-phone"></i> Crisis Hotline</a>
+          <a href="#"><i class="fas fa-question-circle"></i> FAQ</a>
+          <a href="#"><i class="fas fa-envelope"></i> Contact Us</a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Resources</h3>
+        <div class="footer-links">
+          <a href="ebooks.html"><i class="fas fa-book-open"></i> E-books</a>
+          <a href="videos.html"><i class="fas fa-video"></i> Videos</a>
+          <a href="#"><i class="fas fa-podcast"></i> Podcasts</a>
+          <a href="#"><i class="fas fa-blog"></i> Articles</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2025 MindMesh | Team Innovatrix | Built with 💙 for mental wellness</p>
+    </div>
+  </footer>
+  <script src="js/script.js"></script>
 </body>
 </html>

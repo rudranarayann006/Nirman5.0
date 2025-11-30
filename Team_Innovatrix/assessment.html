@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindMash - Mental Health Assessment Platform</title>
+    <meta name="description" content="Take our comprehensive 30-question mental health assessment. Get personalized insights, connect with AI counselors, and prioritize your wellbeing with MindMash.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .intro-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .intro-section .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .emoji {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .question-card {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .question-category {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .option-icon {
+            font-size: 1.5rem;
+        }
+
+        .option-text {
+            font-weight: 500;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .results-section {
+            text-align: center;
+        }
+
+        .score-card {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .score-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .risk-level {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .risk-low { color: #28a745; }
+        .risk-moderate { color: #ffc107; }
+        .risk-high { color: #dc3545; }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .category-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .category-score {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            .intro-section h1 {
+                font-size: 2rem;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- Intro Section -->
+            <div id="intro-section" class="intro-section">
+                <div class="emoji">🧠</div>
+                <h1>MindMash Assessment</h1>
+
+                <p class="subtitle">10 Psychological Wellbeing Questions</p>
+                
+                <p style="margin: 20px 0; line-height: 1.6;">
+                    Welcome to your psychological wellbeing assessment. This thoughtfully-designed 
+                    questionnaire will help evaluate your personal awareness, resilience, and inner growth.
+                </p>
+
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">⏱️</div>
+                        <div>
+                            <div style="font-weight: 500;">Takes 3-5 minutes</div>
+                            <div style="color: #666; font-size: 0.9rem;">10 multiple choice questions</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">🧠</div>
+                        <div>
+                            <div style="font-weight: 500;">Self-awareness focus</div>
+                            <div style="color: #666; font-size: 0.9rem;">Values, emotions, adaptability, ethics, connection</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">🔒</div>
+                        <div>
+                            <div style="font-weight: 500;">Confidential & secure</div>
+                            <div style="color: #666; font-size: 0.9rem;">Your responses are private and protected</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p style="color: #666; font-size: 0.9rem; margin: 20px 0;">
+                    Answer honestly for the most accurate assessment. There are no right or wrong answers.
+                </p>
+                
+                <button class="btn" onclick="startAssessment()">Begin Assessment</button>
+            </div>
+
+            <!-- Question Section -->
+            <div id="question-section" class="hidden">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                
+                <div class="question-card">
+                    <div class="question-category" id="question-category"></div>
+                    <div class="question-number" id="question-number"></div>
+                    <div class="question-text" id="question-text"></div>
+                </div>
+
+                <div class="options" id="options">
+                    <!-- Options will be dynamically populated -->
+                </div>
+
+                <div class="navigation">
+                    <button class="btn btn-secondary" id="prev-btn" onclick="previousQuestion()" disabled>Previous</button>
+                    <div id="answer-status" style="color: #666;">Please select an answer</div>
+                    <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>Next</button>
+                </div>
+            </div>
+
+            <!-- Account Creation Section -->
+            <div id="account-section" class="hidden">
+                <div class="emoji">🎉</div>
+                <h2 style="text-align: center; margin-bottom: 10px;">Assessment Complete!</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                    View your personalized results
+                </p>
+
+                <form id="account-form">
+                    <div class="form-group">
+                        <label class="form-label" for="name">👤 Full Name *</label>
+                        <input type="text" id="name" class="form-input" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="email">📧 Email Address *</label>
+                        <input type="email" id="email" class="form-input" placeholder="Enter your email address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="age">📅 Age (Optional)</label>
+                        <input type="number" id="age" class="form-input" placeholder="Enter your age" min="13" max="120">
+                    </div>
+
+                    <button type="submit" class="btn" id="create-account-btn">
+                        <span id="account-btn-text">👤 View Results</span>
+                    </button>
+
+                    <p style="font-size: 0.8rem; color: #666; text-align: center; margin-top: 15px;">
+                        By creating an account, you agree to our Terms of Service and Privacy Policy.
+                        Your assessment data will be kept confidential.
+                    </p>
+                </form>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="hidden">
+                <div class="results-section">
+                    <div class="emoji">📊</div>
+                    <h2 style="margin-bottom: 10px;">Your Mental Health Assessment Results</h2>
+                    <p style="color: #666; margin-bottom: 30px;" id="user-greeting"></p>
+
+                    <div class="score-card">
+                        <div class="score-number" id="total-score">0</div>
+                        <div class="risk-level" id="risk-level">Risk Level</div>
+                        <p id="risk-description">Assessment description</p>
+                    </div>
+
+                    <h3 style="margin: 30px 0 20px 0;">Category Breakdown</h3>
+                    <div class="categories-grid" id="categories-grid"></div>
+
+                    <div style="margin-top: 30px;">
+                        <h3 style="margin-bottom: 15px;">Recommendations</h3>
+                        <div id="recommendations" style="text-align: left; background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                        </div>
+                    </div>
+
+                    <button class="btn" onclick="retakeAssessment()" style="margin-top: 30px;">
+                        🔄 Retake Assessment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Assessment data
+        const questions = [
+            {
+                id: 1,
+                category: "🎯 Self-Awareness",
+                text: "How often do you reflect on your personal values and purpose in life?",
+                options: [
+                    { value: 4, text: "A) Daily and regularly", icon: "🌟" },
+                    { value: 3, text: "B) Weekly", icon: "📅" },
+                    { value: 2, text: "C) Occasionally (once a month or less)", icon: "🗓️" },
+                    { value: 1, text: "D) Almost never", icon: "❌" }
+                ]
+            },
+            {
+                id: 2,
+                category: "💪 Resilience",
+                text: "When faced with suffering or hardship, how do you tend to respond?",
+                options: [
+                    { value: 4, text: "A) See it as an opportunity to grow or learn", icon: "🌱" },
+                    { value: 3, text: "B) Try to endure it without much reflection", icon: "⚖️" },
+                    { value: 2, text: "C) Feel overwhelmed and stuck", icon: "😰" },
+                    { value: 1, text: "D) Ignore it or distract myself", icon: "🙈" }
+                ]
+            },
+            {
+                id: 3,
+                category: "🧠 Emotional Intelligence",
+                text: "How aware are you of your emotions (both positive & negative) in everyday situations?",
+                options: [
+                    { value: 4, text: "A) Very aware — I can identify them and understand their cause", icon: "🎯" },
+                    { value: 3, text: "B) Somewhat aware — I notice them but not always sure why", icon: "🤔" },
+                    { value: 2, text: "C) Slightly aware — only when the emotion is strong", icon: "📊" },
+                    { value: 1, text: "D) Rarely aware", icon: "😶" }
+                ]
+            },
+            {
+                id: 4,
+                category: "🔍 Critical Thinking",
+                text: "In your behavior or decision-making at work, how often do you think \"why\" or \"what if\" to seek deeper understanding?",
+                options: [
+                    { value: 4, text: "A) Very often", icon: "🔬" },
+                    { value: 3, text: "B) Occasionally", icon: "💭" },
+                    { value: 2, text: "C) Rarely", icon: "📝" },
+                    { value: 1, text: "D) Never", icon: "❌" }
+                ]
+            },
+            {
+                id: 5,
+                category: "🔄 Adaptability",
+                text: "How flexible are you in adapting to changes or unexpected challenges at work?",
+                options: [
+                    { value: 4, text: "A) Very flexible — I adapt easily", icon: "🌊" },
+                    { value: 3, text: "B) Moderately flexible", icon: "🔧" },
+                    { value: 2, text: "C) Struggle sometimes", icon: "⚠️" },
+                    { value: 1, text: "D) Very rigid", icon: "🧱" }
+                ]
+            },
+            {
+                id: 6,
+                category: "⚖️ Ethics",
+                text: "When dealing with ethical dilemmas or situations where causing harm is possible, how do you generally act?",
+                options: [
+                    { value: 4, text: "A) Try my best not to cause unnecessary harm", icon: "💚" },
+                    { value: 3, text: "B) Consider pros and cons, may choose a compromise", icon: "🤝" },
+                    { value: 2, text: "C) Follow what's easiest or beneficial for me", icon: "⚡" },
+                    { value: 1, text: "D) Ignore ethics, act for personal benefit", icon: "💰" }
+                ]
+            },
+            {
+                id: 7,
+                category: "🌐 Connection",
+                text: "To what extent do you feel connected to others and to the larger purpose behind what you do?",
+                options: [
+                    { value: 4, text: "A) Deeply connected — sense of unity with people & mission", icon: "🤗" },
+                    { value: 3, text: "B) Moderately connected", icon: "👥" },
+                    { value: 2, text: "C) A little — sometimes feel connected, sometimes disconnected", icon: "🔗" },
+                    { value: 1, text: "D) Not connected", icon: "🏝️" }
+                ]
+            },
+            {
+                id: 8,
+                category: "🧘 Spiritual Practice",
+                text: "How often do you engage in rituals or practices (meditation, prayer, mindfulness) to nurture your inner peace or spirituality?",
+                options: [
+                    { value: 4, text: "A) Daily", icon: "🌅" },
+                    { value: 3, text: "B) Several times a week", icon: "📅" },
+                    { value: 2, text: "C) Few times a month", icon: "🗓️" },
+                    { value: 1, text: "D) Rarely or never", icon: "❌" }
+                ]
+            },
+            {
+                id: 9,
+                category: "✨ Vision & Values",
+                text: "When you are inspired by vision, values, or ideals, how much do they influence your work or daily life?",
+                options: [
+                    { value: 4, text: "A) Very much — they guide my choices often", icon: "🌟" },
+                    { value: 3, text: "B) Somewhat — they influence sometimes", icon: "💫" },
+                    { value: 2, text: "C) A little — only when reminded", icon: "💡" },
+                    { value: 1, text: "D) Not much — I act mostly on practical or immediate concerns", icon: "⚡" }
+                ]
+            },
+            {
+                id: 10,
+                category: "🔮 Systems Thinking",
+                text: "How would you describe your ability to see connections between diverse ideas, people, or situations?",
+                options: [
+                    { value: 4, text: "A) Very good — I often see patterns or connect different things meaningfully", icon: "🕸️" },
+                    { value: 3, text: "B) Good — sometimes I do", icon: "🔗" },
+                    { value: 2, text: "C) Fair — only when encouraged", icon: "📊" },
+                    { value: 1, text: "D) Poor — I mostly stay within familiar or narrow views", icon: "📦" }
+                ]
+            }
+        ];
+
+        // State
+        let currentQuestionIndex = 0;
+        let responses = [];
+        let currentSelectedAnswer = null;
+
+        // Functions
+        function startAssessment() {
+            document.getElementById('intro-section').classList.add('hidden');
+            document.getElementById('question-section').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = questions[currentQuestionIndex];
+            const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+            
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('question-category').textContent = question.category;
+            document.getElementById('question-number').textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+            document.getElementById('question-text').textContent = question.text;
+            
+            // Clear previous selection
+            currentSelectedAnswer = null;
+            
+            // Generate options dynamically
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.onclick = () => selectOption(index, option.value);
+                optionDiv.innerHTML = `
+                    <div class="option-icon">${option.icon}</div>
+                    <div class="option-text">${option.text}</div>
+                `;
+                optionsContainer.appendChild(optionDiv);
+            });
+            
+            // Update navigation
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').disabled = true;
+            document.getElementById('answer-status').textContent = 'Please select an answer';
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                document.getElementById('next-btn').textContent = 'Complete';
+            } else {
+                document.getElementById('next-btn').textContent = 'Next';
+            }
+        }
+
+        function selectOption(optionIndex, value) {
+            currentSelectedAnswer = value;
+            
+            // Update UI
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                option.classList.remove('selected');
+                if (index === optionIndex) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Save response
+            const questionId = questions[currentQuestionIndex].id;
+            responses = responses.filter(r => r.questionId !== questionId);
+            responses.push({ questionId, value });
+            
+            // Enable next button
+            document.getElementById('next-btn').disabled = false;
+            document.getElementById('answer-status').textContent = 'Answer recorded';
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showAccountCreation();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+            }
+        }
+
+        function showAccountCreation() {
+            document.getElementById('question-section').classList.add('hidden');
+            document.getElementById('account-section').classList.remove('hidden');
+        }
+
+        function createAccount(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const age = document.getElementById('age').value;
+            
+            if (!name || !email) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('create-account-btn').disabled = true;
+            document.getElementById('account-btn-text').innerHTML = '<span class="loading"></span>Creating Account...';
+            
+            // Simulate account creation
+            setTimeout(() => {
+                const user = { name, email, age: age ? parseInt(age) : null };
+                showResults(user);
+            }, 1500);
+        }
+
+        function showResults(user) {
+            document.getElementById('account-section').classList.add('hidden');
+            document.getElementById('results-section').classList.remove('hidden');
+            
+            // Calculate results
+            const results = calculateResults();
+            
+            // Display user greeting
+            document.getElementById('user-greeting').textContent = `Hello ${user.name}! Here are your assessment results:`;
+            
+            // Display total score and risk level
+            document.getElementById('total-score').textContent = results.totalScore + '/40';
+            
+            let riskLevel, riskClass, riskDescription;
+            if (results.totalScore >= 30) {
+                riskLevel = 'High Wellbeing';
+                riskClass = 'risk-low';
+                riskDescription = 'Excellent psychological wellbeing! You show strong self-awareness, resilience, and connection.';
+            } else if (results.totalScore >= 20) {
+                riskLevel = 'Moderate Wellbeing';
+                riskClass = 'risk-moderate';
+                riskDescription = 'Good psychological health with some areas for growth. Consider developing mindfulness practices.';
+            } else {
+                riskLevel = 'Developing Wellbeing';
+                riskClass = 'risk-high';
+                riskDescription = 'Room for significant growth in psychological wellbeing. Consider exploring self-development practices.';
+            }
+            
+            document.getElementById('risk-level').textContent = riskLevel;
+            document.getElementById('risk-level').className = 'risk-level ' + riskClass;
+            document.getElementById('risk-description').textContent = riskDescription;
+            
+            // Display category breakdown
+            const categoriesGrid = document.getElementById('categories-grid');
+            categoriesGrid.innerHTML = '';
+            
+            Object.entries(results.categoryScores).forEach(([category, score]) => {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'category-card';
+                categoryCard.innerHTML = `
+                    <div class="category-name">${category}</div>
+                    <div class="category-score">${score}/4</div>
+                `;
+                categoriesGrid.appendChild(categoryCard);
+            });
+            
+            // Display recommendations
+            const recommendations = document.getElementById('recommendations');
+            let recommendationText = '';
+            
+            if (results.categoryScores['Self-Awareness'] < 3) {
+                recommendationText += '• Develop a daily reflection practice - journaling or meditation<br>';
+            }
+            if (results.categoryScores['Resilience'] < 3) {
+                recommendationText += '• Practice reframing challenges as growth opportunities<br>';
+            }
+            if (results.categoryScores['Emotional Intelligence'] < 3) {
+                recommendationText += '• Practice mindfulness to increase emotional awareness<br>';
+            }
+            if (results.categoryScores['Critical Thinking'] < 3) {
+                recommendationText += '• Ask "why" and "what if" questions more often in daily situations<br>';
+            }
+            if (results.categoryScores['Adaptability'] < 3) {
+                recommendationText += '• Challenge yourself with small changes to build flexibility<br>';
+            }
+            if (results.categoryScores['Ethics'] < 3) {
+                recommendationText += '• Reflect on your values and how they guide your decisions<br>';
+            }
+            if (results.categoryScores['Connection'] < 3) {
+                recommendationText += '• Seek meaningful relationships and consider your larger purpose<br>';
+            }
+            if (results.categoryScores['Spiritual Practice'] < 3) {
+                recommendationText += '• Explore meditation, prayer, or mindfulness practices<br>';
+            }
+            if (results.categoryScores['Vision & Values'] < 3) {
+                recommendationText += '• Clarify your core values and integrate them into daily decisions<br>';
+            }
+            if (results.categoryScores['Systems Thinking'] < 3) {
+                recommendationText += '• Practice seeing connections between different areas of your life<br>';
+            }
+            
+            if (!recommendationText) {
+                recommendationText = '• Continue developing your psychological awareness and practices<br>• Maintain your current positive patterns<br>• Consider deeper spiritual or philosophical exploration';
+            } else {
+                recommendationText += '• Consider working with a coach or therapist for deeper development<br>• Join groups focused on personal growth and mindfulness';
+            }
+            
+            recommendations.innerHTML = recommendationText;
+        }
+
+        function calculateResults() {
+            const categoryScores = {
+                'Self-Awareness': 0,
+                'Resilience': 0,
+                'Emotional Intelligence': 0,
+                'Critical Thinking': 0,
+                'Adaptability': 0,
+                'Ethics': 0,
+                'Connection': 0,
+                'Spiritual Practice': 0,
+                'Vision & Values': 0,
+                'Systems Thinking': 0
+            };
+            
+            let totalScore = 0;
+            
+            responses.forEach(response => {
+                const question = questions.find(q => q.id === response.questionId);
+                const score = response.value;
+                
+                // Map question to category based on question ID
+                let categoryKey = '';
+                if (question.id === 1) categoryKey = 'Self-Awareness';
+                else if (question.id === 2) categoryKey = 'Resilience';
+                else if (question.id === 3) categoryKey = 'Emotional Intelligence';
+                else if (question.id === 4) categoryKey = 'Critical Thinking';
+                else if (question.id === 5) categoryKey = 'Adaptability';
+                else if (question.id === 6) categoryKey = 'Ethics';
+                else if (question.id === 7) categoryKey = 'Connection';
+                else if (question.id === 8) categoryKey = 'Spiritual Practice';
+                else if (question.id === 9) categoryKey = 'Vision & Values';
+                else if (question.id === 10) categoryKey = 'Systems Thinking';
+                
+                if (categoryKey) {
+                    categoryScores[categoryKey] = score;
+                }
+                
+                totalScore += score;
+            });
+            
+            return { totalScore, categoryScores };
+        }
+
+        function retakeAssessment() {
+            currentQuestionIndex = 0;
+            responses = [];
+            currentSelectedAnswer = null;
+            
+            document.getElementById('results-section').classList.add('hidden');
+            document.getElementById('intro-section').classList.remove('hidden');
+            
+            // Reset form
+            document.getElementById('account-form').reset();
+            document.getElementById('create-account-btn').disabled = false;
+            document.getElementById('account-btn-text').innerHTML = '👤 Create Account & View Results';
+        }
+
+        // Event listeners
+        document.getElementById('account-form').addEventListener('submit', createAccount);
+    </script>
+</body>
+</html>
